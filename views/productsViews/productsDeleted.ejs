@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head.ejs') %>
+  </head>
+
+  <body>
+    
+    <header>
+      <%- include('../partials/navBar.ejs') %>
+    </header>
+
+    <main>
+      <h1>Productos Eliminados</h1>
+      <div class="vuelos" id="Vuelo">
+        <h2>Vuelos</h2>
+        <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
+          <% products.forEach(product => { %>
+            <% if(product.id_categoria === 1) { %>
+              <div class="card" style="width: 18rem;">
+                <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.nombre %></h5>
+                  <p class="card-text"><%= product.info %></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><i class="bi bi-airplane-fill"></i> <%= product.servicio %></li>
+                  <li class="list-group-item"><i class="bi bi-currency-dollar"></i> <%= product.precio %>,00</li>
+                  <li class="list-group-item"><i class="bi bi-credit-card-fill"></i> <%= product.pagosDescripcion %></li>
+                </ul>
+                <div class="card-body">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="card-link border" data-bs-toggle="modal" data-bs-target="#<%= product.idModal %>">
+                    <i class="bi bi-plus"></i> Ver más
+                  </button>
+    
+                  <!-- Modal -->
+                  <div class="modal fade" id="<%= product.idModal %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= product.nombre %></h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <h5><%= product.servicio %></h5>
+                          <p><%= product.descripcion %></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <form action="/products/recycle/<%= product.id %>" method="POST">
+                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Recuperar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          <% }) %>
+        </div>
+
+      <div class="hoteles" id="Hotel">
+        <h2>Hoteles</h2>
+        <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
+          <% products.forEach(product => { %>
+            <% if(product.id_categoria === 2) { %>
+              <div class="card" style="width: 18rem;">
+                <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.nombre %></h5>
+                  <p class="card-text"><%= product.info %></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><i class="bi bi-buildings-fill"></i> <%= product.servicio %></li>
+                  <li class="list-group-item"><i class="bi bi-currency-dollar"></i> <%= product.precio %>,00</li>
+                  <li class="list-group-item"><i class="bi bi-credit-card-fill"></i> <%= product.pagosDescripcion %></li>
+                </ul>
+                <div class="card-body">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="card-link border" data-bs-toggle="modal" data-bs-target="#<%= product.idModal %>">
+                    <i class="bi bi-plus"></i> Ver más
+                  </button>
+    
+                  <!-- Modal -->
+                  <div class="modal fade" id="<%= product.idModal %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= product.nombre %></h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <h5><%= product.servicio %></h5>
+                          <p><%= product.descripcion %></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <form action="/products/recycle/<%= product.id %>" method="POST">
+                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Recuperar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          <% }) %>
+        </div>    
+      </div>
+
+      <div class="paquetes" id="Paquete">
+        <h2>Paquetes</h2>
+        <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
+          <% products.forEach(product => { %>
+            <% if(product.id_categoria === 3) { %>
+              <div class="card" style="width: 18rem;">
+                <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.nombre %></h5>
+                  <p class="card-text"><%= product.info %></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><i class="bi bi-box2-heart-fill"></i> <%= product.servicio %></li>
+                  <li class="list-group-item"><i class="bi bi-currency-dollar"></i> <%= product.precio %>,00</li>
+                  <li class="list-group-item"><i class="bi bi-credit-card-fill"></i> <%= product.pagosDescripcion %></li>
+                </ul>
+                <div class="card-body">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="card-link border" data-bs-toggle="modal" data-bs-target="#<%= product.idModal %>">
+                    <i class="bi bi-plus"></i> Ver más
+                  </button>
+    
+                  <!-- Modal -->
+                  <div class="modal fade" id="<%= product.idModal %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= product.nombre %></h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <h5><%= product.servicio %></h5>
+                          <p><%= product.descripcion %></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <form action="/products/recycle/<%= product.id %>" method="POST">
+                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Recuperar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="actividades" id="Actividad">
+        <h2>Actividades</h2>
+        <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
+          <% products.forEach(product => { %>
+            <% if(product.id_categoria === 4) { %>
+              <div class="card" style="width: 18rem;">
+                <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.nombre %></h5>
+                  <p class="card-text"><%= product.info %></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><i class="bi bi-ticket-perforated-fill"></i> <%= product.servicio %></li>
+                  <li class="list-group-item"><i class="bi bi-currency-dollar"></i> <%= product.precio %>,00</li>
+                  <li class="list-group-item"><i class="bi bi-credit-card-fill"></i> <%= product.pagosDescripcion %></li>
+                </ul>
+                <div class="card-body">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="card-link border" data-bs-toggle="modal" data-bs-target="#<%= product.idModal %>">
+                    <i class="bi bi-plus"></i> Ver más
+                  </button>
+    
+                  <!-- Modal -->
+                  <div class="modal fade" id="<%= product.idModal %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= product.nombre %></h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <h5><%= product.servicio %></h5>
+                          <p><%= product.descripcion %></p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <form action="/products/recycle/<%= product.id %>" method="POST">
+                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Recuperar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          <% }) %>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="pt-2">
+      <%- include('../partials/footer.ejs') %>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>

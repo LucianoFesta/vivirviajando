@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head.ejs') %>
+  </head>
+<body>
+
+  <header>
+    <%- include('../partials/navbar.ejs') %>
+  </header>
+
+    <main class="login container p-4 mt-4 mb-4">
+      <h1>Ingresá a tu cuenta</h1>
+        <form action="/users/login" method="POST">
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" value="<%= locals.oldData ? oldData.email : '' %>">
+              <% if(locals.errors && errors.email) { %> 
+                <span class="text-danger" >* <%= errors.email.msg %> </span>
+              <% } %>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <div class="d-flex mostrarPassword">
+                <input type="password" class="form-control" id="password" name="password">
+                <i class="bi bi-eye" id="eyePassword"></i>
+                <i class="bi bi-eye-slash" id="eyePasswordNone"></i>
+              </div>
+              <% if(locals.errors && errors.password) { %> 
+                <span class="text-danger" >* <%= errors.password.msg %> </span>
+              <% } %>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="remindMe" name="remindMe">
+                <label class="form-check-label" for="remindMe">Recordarme</label>
+              </div>
+              <div class="mb-3">
+                <a href="#">¿Olvidaste tu contraseña?</a>
+              </div>
+            </div>
+            <button type="submit" class="btnLogin"><i class="bi bi-box-arrow-in-right"></i> Ingresar</button>
+          </form>
+    </main>
+
+    <footer class="pt-2">
+      <%- include('../partials/footer.ejs') %>
+    </footer>
+  
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="/js/login.js"></script>
+
+</body>
+</html>

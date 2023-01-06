@@ -1,0 +1,351 @@
+body{
+    font-family: 'Raleway', sans-serif !important;
+    background-color: #ecf8fc98;
+}
+
+h1{
+    padding: 15px;
+    text-align: center;
+    font-style: italic;
+    color: rgb(64, 112, 0);
+    font-size: 25px;
+}
+
+h2{
+    padding: 15px;
+    font-style: italic;
+    color: rgb(64, 112, 0);
+    font-size: 25px;
+}
+
+h4{
+    padding: 15px;
+    font-style: italic;
+    color: rgb(64, 112, 0);
+}
+
+
+/*************************************************************************************************************************************/
+/***************************************************************** NAVBAR ************************************************************/
+/*************************************************************************************************************************************/
+
+nav{
+    background-color: brown;
+}
+
+.nav-item a, .btnLogin, .register button, .register a{
+    position: relative;
+    margin: 10px 0;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px 20px;
+    transition: all 0.5s;
+}
+
+
+.nav-item a:hover, .btnLogin:hover, .register button:hover{
+    box-shadow: inset 30em 0 0 0 rgb(164, 206, 111);
+    font-weight: 600;
+}
+
+
+.nav-item i {
+    transition: all 0.5s;
+}
+
+.nav-item a:hover i {
+    color: rgb(134, 184, 74)
+}
+
+.nav-link{
+    color: rgba(32, 32, 32, 0.87);
+}
+
+.texto{
+    background-color: rgba(148, 222, 245, 0.795);
+}
+
+.dropdown-menu{
+    background-color: rgba(221, 250, 184, 0.616);
+    border: none;
+}
+
+.navbar-toggler{
+    background-color: rgba(221, 250, 184, 0.616);
+    border-color: rgba(148, 222, 245, 0.795);
+}
+
+/*************************************************************************************************************************************/
+/***************************************************************** CAROUSEL **********************************************************/
+/*************************************************************************************************************************************/
+
+.carousel-item img, .nosotros img{
+    opacity: 0.7;
+}
+
+.carousel-caption{
+    background-color: rgba(135, 184, 74, 0.342);
+    border-radius: 20px;
+    margin-bottom: 420px;
+}
+
+
+
+/*************************************************************************************************************************************/
+/***************************************************************** INFO **************************************************************/
+/*************************************************************************************************************************************/
+
+.info, .login{
+    background-color: rgba(227, 244, 250, 0.795);
+}
+
+.info i{
+    color: rgba(78, 136, 2, 0.753);
+    font-size: 40px;
+}
+
+.info p{
+    font-style: italic;
+}
+
+/*************************************************************************************************************************************/
+/***************************************************************** MAIN **************************************************************/
+/*************************************************************************************************************************************/
+
+.hoteles, .actividades{
+    background-color: rgba(227, 244, 250, 0.795);
+}
+
+.card{
+    margin: 10px;
+    border: 2px solid rgba(187, 237, 255, 0.795);
+    transition: all 0.7s ease-in-out;
+    overflow: hidden;
+}
+
+.card img{
+    transition: all 0.7s;
+    object-fit: cover;
+}
+
+.card:hover{
+    cursor: pointer;
+    box-shadow: 8px 8px 8px rgb(170, 170, 170);
+}
+
+.card:hover img{
+    transform: scale(1.1);
+    border-radius: 10px;
+}
+
+.card-text{
+    font-style: italic;
+    color: rgba(78, 136, 2, 0.753);
+}
+
+.card-link{
+    background-color: rgba(187, 237, 255, 0.795);
+    text-decoration: none;
+    padding: 7px 20px;
+    border-radius: 5px;
+    color: black;
+    font-weight: 700;
+    transition: all 0.3s ease-in-out;
+}
+
+.card-link:hover{
+    background-color: rgba(221, 250, 184, 0.616);
+    color: rgba(78, 136, 2, 0.753);
+    border: 1px solid rgba(78, 136, 2, 0.753);
+}
+
+.card h5{
+    font-style: italic;
+    text-decoration:underline;
+}
+
+/*************************************************************************************************************************************/
+/**************************************************************** FOOTER *************************************************************/
+/*************************************************************************************************************************************/
+
+footer{
+    background-color: rgba(221, 250, 184, 0.616);;
+}
+
+.texto-footer{
+    font-size: 12px;
+    text-align: justify;
+}
+
+footer a i, footer i {
+    font-size: 20px;
+    color: rgba(78, 136, 2, 0.753);
+    transition: all 0.7s ease;
+}
+
+footer a i:hover{
+    color: rgba(43, 75, 1, 0.753);
+}
+
+.suscripcionBtn{
+    background-color: rgba(10, 157, 211, 0.795);
+    padding: 4px;
+}
+
+.copy{
+    font-size: 10px;
+}
+
+/*************************************************************************************************************************************/
+/***************************************************************** NOSOTROS **********************************************************/
+/*************************************************************************************************************************************/
+
+.mainNosotros{
+    background-color: rgba(227, 244, 250, 0.795);
+    border-radius: 5px;
+}
+
+.nosotros img{
+    height: 450px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 3px rgb(202, 202, 202);
+}
+
+.nosotros p b{
+    color: rgba(78, 136, 2, 0.753);
+}
+
+/*************************************************************************************************************************************/
+/***************************************************************** LOGIN *************************************************************/
+/*************************************************************************************************************************************/
+
+.login{
+    border-radius: 10px;
+    background-color: rgba(223, 241, 248, 0.795);
+}
+
+.mostrarPassword i{
+    border: none;
+    margin-left: -40px;
+    padding-top: 8px;
+    background-color: rgba(240, 248, 255, 0);
+    cursor: pointer;
+}
+
+.mostrarPassword i:last-child{
+    display: none;
+}
+
+/*************************************************************************************************************************************/
+/**************************************************************** REGISTER ***********************************************************/
+/*************************************************************************************************************************************/
+
+.mainRegister{
+    border-radius: 10px;
+    background-color: rgba(223, 241, 248, 0.795);
+}
+
+.register button, .register a{
+    border-color: rgb(201, 201, 201);
+    border-radius: 10px;
+    background-color: rgba(172, 228, 250, 0.795);
+    color: black;
+}
+
+/*************************************************************************************************************************************/
+/***************************************************************** PERFIL ************************************************************/
+/*************************************************************************************************************************************/
+
+.divEncabezado{
+    padding: 10px;
+    background-color: rgba(212, 255, 155, 0.753);
+    border-radius: 10px;
+}
+
+.divEncabezado img{
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+}
+
+.iconosProfile i{
+    font-size: 25px;
+    color: rgba(78, 136, 2, 0.753);
+}
+.spanProfile{
+    font-size: 12px;
+    color: gray;
+    text-align: start;
+}
+
+.divCompras{
+    background-color: rgba(212, 255, 155, 0.753);
+    border-radius: 10px;
+}
+
+.card-header{
+    background-color: rgba(211, 237, 247, 0.795);
+}
+
+/*************************************************************************************************************************************/
+/**************************************************************** CARRITO ************************************************************/
+/*************************************************************************************************************************************/
+
+.carrito{
+    background-color: rgba(114, 210, 223, 0.795);
+}
+
+.carrito button{
+    transition: all 0.5s ease-in-out;
+}
+
+.carrito button:hover{
+    background-color: rgba(212, 255, 155, 0.753);
+}
+
+.carrito img{
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+}
+
+.carrito input{
+    width: 50px;
+}
+
+.divTotal{
+    background-color: rgba(212, 255, 155, 0.753);
+    border-radius: 5px;
+}
+
+@media (min-width: 769px){
+    .carousel-inner{
+        height: 80vh;
+    }
+
+    .nav-item a{
+        margin: 10px 15px;
+        padding: 10px 12px
+    }
+
+    .dropdown-item{
+        margin: 0 !important;
+    }
+
+    .login{
+        width: 50%;
+    }
+
+    .register{
+        padding: 25px 120px !important;
+    }
+
+    .spanPrecio{
+        padding-left: 200px;
+    }
+
+    .imgForm{
+        width: 100px;
+        height: 100px;
+    }
+}

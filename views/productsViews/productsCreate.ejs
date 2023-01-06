@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head.ejs') %>
+  </head>
+<body>
+
+  <header>
+    <%- include('../partials/navbar.ejs') %>
+  </header>
+
+    <main class="mainRegister p-2 m-4">
+      <h2 class="text-center">Completá los campos para crear un nuevo producto</h2>
+        <form class="row g-3 p-4 register" action="/products/create" method="POST" enctype="multipart/form-data">
+            <div class="col-md-4">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" name="name" id="name" class="form-control" id="inputEmail4" value="<%= locals.oldData ? oldData.name : null %>">
+              <% if(locals.errors && errors.name) { %> 
+                <span class="text-danger" >* <%= errors.name.msg %> </span>
+              <% } %>
+            </div>
+            <div class="col-md-4">
+                <label for="category" class="form-label">Categoría</label>
+                <select id="category" name="category" class="form-select">
+                    <option disabled <%= !locals.oldData || !oldData.category ? 'selected' : '' %> >Elegí la categoria</option>
+                    <% categorys.forEach(category => { %> 
+                      <option value="<%= category.id %>" <%= locals.oldData && oldData.category == category.id ? 'selected' : '' %>> <%= category.nombre %> </option>
+                    <% }) %>
+                </select>
+                <% if(locals.errors && errors.category) { %> 
+                  <span class="text-danger" >* <%= errors.category.msg %> </span>
+                <% } %>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="image" class="form-label">Imágen</label>
+                <input class="form-control" type="file" name="image" id="image">
+                <% if(locals.errors && errors.image) { %> 
+                  <span class="text-danger" >* <%= errors.image.msg %> </span>
+                <% } %>
+              </div>
+            <div class="form-floating">
+                <textarea class="form-control" type="text" id="info" name="info"><%= locals.oldData ? oldData.info : null %></textarea>
+                <label for="info">Información</label>
+                <% if(locals.errors && errors.info) { %> 
+                  <span class="text-danger" >* <%= errors.info.msg %> </span>
+                <% } %>
+            </div>
+            <div class="col-md-4">
+              <label for="service" class="form-label">Servicio</label>
+              <input type="text" name="service" id="service" class="form-control" value="<%=locals.oldData ? oldData.service : null%>">
+              <% if(locals.errors && errors.service) { %> 
+                <span class="text-danger" >* <%= errors.service.msg %> </span>
+              <% } %>
+            </div>
+            <div class="col-md-4">
+              <label for="price" class="form-label">Precio</label>
+              <input type="decimal" name="price" id="price" class="form-control" value="<%=locals.oldData ? oldData.price : null%>">
+              <% if(locals.errors && errors.price) { %> 
+                <span class="text-danger" >* <%= errors.price.msg %> </span>
+              <% } %>
+            </div>
+            <div class="col-md-4">
+              <label for="pay" class="form-label">Medios de Pago</label>
+              <select id="pay" name="pay" class="form-select">
+                <option disabled <%=!locals.oldData || !oldData.pay ? 'selected' : '' ;%>>Elegí la categoria</option>
+                <% pays.forEach(pay => { %> 
+                  <option value="<%= pay.id %>" <%=locals.oldData && oldData.pay == pay.id ? 'selected' : '' ;%>><%= pay.descripcion %></option>
+                <% }) %>
+            </select>
+              <% if(locals.errors && errors.pay) { %> 
+                <span class="text-danger" >* <%= errors.pay.msg %> </span>
+              <% } %>
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" id="description" name="description" style="height: 100px"><%=locals.oldData ? oldData.price : null%></textarea>
+                <label for="description">Descripción</label>
+                <% if(locals.errors && errors.description) { %> 
+                  <span class="text-danger" >* <%= errors.description.msg %> </span>
+                <% } %>
+              </div>
+            <div class="col-12 text-center">
+              <button type="submit" class="btn pe-4 ps-4 btnLogin"><i class="bi bi-check2-square"></i> Crear Producto</button>
+              <a href="/" class="btn pe-4 ps-4 btnLogin"><i class="bi bi-x-circle"></i> Cancelar</a>
+            </div>
+          </form>
+    </main>
+
+    <footer class="pt-2">
+      <%- include('../partials/footer.ejs') %>
+    </footer>
+  
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+</body>
+</html>
