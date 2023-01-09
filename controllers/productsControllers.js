@@ -18,7 +18,9 @@ let productsControllers = {
             return res.render('productsCreate', {
                 title: 'Crear Producto',
                 categorys,
-                pays
+                pays,
+                user: req.session.loggedUser
+                
             })
             
         } catch (error) {
@@ -42,7 +44,8 @@ let productsControllers = {
                     errors: validationsResult.mapped(),
                     oldData: req.body,
                     categorys,
-                    pays
+                    pays,
+                    user: req.session.loggedUser
                 })
             }else{
                 let productNew = {
@@ -86,7 +89,8 @@ let productsControllers = {
                 title: 'Editar producto',
                 productEdit,
                 categorys,
-                pays
+                pays,
+                user: req.session.loggedUser
             })
 
         } catch (error) {
@@ -112,7 +116,8 @@ let productsControllers = {
                     errors: validationsResult.mapped(),
                     productEdit,
                     categorys,
-                    pays
+                    pays,
+                    user: req.session.loggedUser
                 });
 
             }else{
@@ -204,7 +209,8 @@ let productsControllers = {
  
             res.render('productsDeleted', {
                 title: 'Productos Eliminados',
-                products
+                products,
+                user: req.session.loggedUser
             });     
 
         } catch (error) {

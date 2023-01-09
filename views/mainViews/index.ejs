@@ -106,14 +106,20 @@
                           <p><%= product.descripcion %></p>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Agregar al Carrito</button>
-                          <form action="/products/edit/<%= product.id %>" method="GET">
-                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Editar</button>
-                          </form>
-                          <form action="/products/delete/<%= product.id %>?_method=DELETE" method="POST">
-                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar</button>
-                          </form>
+                          <% if(user == undefined || user.id_tipoUsuario === 2 ){ %> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <form action="/users/login" method="get">
+                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Agregar al Carrito</button>
+                            </form>
+                          <% }else{ %> 
+                            <form action="/products/edit/<%= product.id %>" method="GET">
+                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Editar</button>
+                            </form>
+                            <form action="/products/delete/<%= product.id %>?_method=DELETE" method="POST">
+                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar</button>
+                            </form>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <% } %>
                         </div>
                       </div>
                     </div>

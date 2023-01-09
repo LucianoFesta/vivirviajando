@@ -33,7 +33,8 @@ let usersControllers = {
             res.render('register', {
                 title: 'Registro',
                 genres,
-                provinces
+                provinces,
+                user: req.session.loggedUser
             })
 
         } catch (error) {
@@ -65,7 +66,8 @@ let usersControllers = {
                     errors: validationsResult.mapped(),
                     oldData: req.body,
                     genres,
-                    provinces
+                    provinces,
+                    user: req.session.loggedUser
                 })
 
             }else{
@@ -99,7 +101,8 @@ let usersControllers = {
                         },
                         oldData: req.body,
                         genres,
-                        provinces
+                        provinces,
+                        user: req.session.loggedUser
                     })
                 }else{
 
@@ -115,7 +118,8 @@ let usersControllers = {
                             },
                             oldData: req.body,
                             genres,
-                            provinces
+                            provinces,
+                            user: req.session.loggedUser
                         })
                     }else{
 
@@ -125,10 +129,10 @@ let usersControllers = {
                         //APIKEY creada en el entorno de desarrollo (.env)
                         const mg = mailgun({apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN});
 
-                        //Creo un token en base a los datos del usuario a crear.
+                        //Creo un token en base a los datos del usuario a crear. En este caso, quiero guardar todos los datos del req.body, pero podria solo guardar algunos.
                         const token = jwt.sign({newUser}, process.env.JWT_ACC_ACTIVATE, {expiresIn: '20m'});
 
-                        //Envío de mail
+                        //Configuración del Envío de mail
                         const data = {
                             from: 'noreply@vivirviajando.com',
                             to: newUser.email,
@@ -136,15 +140,16 @@ let usersControllers = {
                             html:`
                                 <html>
                                     <body>
-                                        <h2>Por favor, hacé click en el siguiente link para activar tu cuenta</h2>
-                                        <a href="http://localhost:3000/users/register/verification/${token}">Verificar Cuenta</a>
+                                        <h3>Por favor, hacé click en el siguiente link para activar tu cuenta</h3>
+                                        <p>Al hacer click, serás redirigido a la sección para que puedas loguearte y asi confirmar que ya eres miembro de VivirViajando!</p>
+                                        <a href="http://localhost:3000/users/register/verification/${token}">Verificar mi Correo electrónico</a>
                                     </body>
                                 </html>
                             `
                         };
                         mg.messages().send(data, function (error, body) {
                             if(error){
-                                   console.log(error) 
+                                console.log(error) 
                             }
                             console.log({message: 'El mail ha sido enviado correctamente'})
                         });
@@ -217,6 +222,7 @@ let usersControllers = {
 
         res.render('login', {
             title: 'Ingresar',
+            user: req.session.loggedUser
         })
     },
 
@@ -247,7 +253,8 @@ let usersControllers = {
                                 msg: 'El mail ingresado no se encuentra registrado'
                             }
                         },
-                        oldData: req.body
+                        oldData: req.body,
+                        user: req.session.loggedUser
                     })
                 }
                 else{
@@ -261,13 +268,19 @@ let usersControllers = {
                                     msg: 'La contraseña ingresada es incorrecta'
                                 }
                             },
-                            oldData: req.body
+                            oldData: req.body,
+                            user: req.session.loggedUser
                         })
                     }else{
                         delete loggedUser.password && delete loggedUser.confirmarPassword;
                         loggedUser.categoriaNombre = loggedUser['generos.nombre'];
                         req.session.loggedUser = loggedUser;
-                        //console.log(req.session)
+
+                        if(req.body.remindMe != undefined){
+                            res.cookie('remindMe', req.session.loggedUser, {
+                                maxAge: 1000 * 60 * 60 * 24
+                            });
+                        }
 
                         res.redirect(`/users/profile`)
                     }
@@ -287,7 +300,7 @@ let usersControllers = {
     /**********************GET***************************/
 
     profile: async (req,res) => {
-        try {           
+        try {        
             res.render('profile', {
                 title: 'Hola ' + req.session.loggedUser.nombre,
                 user: req.session.loggedUser
@@ -429,7 +442,7 @@ let usersControllers = {
     logout: (req,res) => {
 
         req.session.destroy();
-
+        res.clearCookie('remindMe');
         res.redirect('/users/login');
     },
 
@@ -565,7 +578,8 @@ let usersControllers = {
 
     cart: (req,res) => {
         res.render('cart', {
-            title: 'Carrito'
+            title: 'Carrito',
+            user: req.session.loggedUser
         })
     },
 

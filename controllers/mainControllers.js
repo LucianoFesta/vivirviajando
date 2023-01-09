@@ -21,7 +21,8 @@ let mainControllers = {
  
             res.render('index', {
                 title: 'VivirViajando',
-                products
+                products,
+                user: req.session.loggedUser
             });     
 
         } catch (error) {
@@ -32,7 +33,8 @@ let mainControllers = {
 
     about: (req,res) => {
         return res.render('about', {
-            title: 'Nosotros'
+            title: 'Nosotros',
+            user: req.session.loggedUser
         })
     }
 
