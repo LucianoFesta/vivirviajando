@@ -36,18 +36,22 @@
                     <li class="nav-item">
                       <a class="nav-link" href="/users/profile"><i class="bi bi-person"></i> Perfil</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/users/cart"><i class="bi bi-cart-fill"></i> Carrito</a>
-                    </li>
 
                     <% if(user == undefined || user.id_tipoUsuario != 1) { %> 
-                      <div></div>
+                      <div>
+                        <li class="nav-item">
+                          <a class="nav-link" href="/users/cart"><i class="bi bi-cart-fill"></i> Carrito</a>
+                        </li>
+                      </div>
                     <% }else if(user.id_tipoUsuario == 1) { %> 
                       <li class="nav-item">
-                        <a class="nav-link" href="/products/create"><i class="bi bi-plus"></i> Crear</a>
+                        <a class="nav-link" href="/products/create"><i class="bi bi-plus"></i> Crear Producto</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/products/recycle"><i class="bi bi-recycle"></i> Recuperar</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/admin/listUsers"><i class="bi bi-people-fill"></i> Lista de Usuarios</a>
                       </li>
                     <% } %>
                     

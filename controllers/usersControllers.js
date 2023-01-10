@@ -312,6 +312,10 @@ let usersControllers = {
         }
     },
 
+    profileViewAdmin: (req, res) => {
+        res.send('estas en la vista de edicion del perfil de un usuario')
+    },
+
     /****************************************************/
     /*******************EDITAR USUARIO******************/
     /****************************************************/
@@ -324,13 +328,16 @@ let usersControllers = {
             const userID = req.params.id;
             const userEdit = await db.usuarios.findByPk(userID, {
                 raw:true,
-                include: [{association: 'generos'}]
+                include: [{association: 'generos'}, {association: 'tipoUsuario'}]
             });
 
             userEdit.nombreGenero = userEdit['generos.nombre'];
+            userEdit.tipoUsuario = userEdit['tipoUsuario.id'];
+            userEdit.nombreTipoUsuario = userEdit['tipoUsuario.nombre'];
             delete userEdit.confirmarPassword && delete userEdit.password;
 
             const genres = await db.generos.findAll({raw:true});
+            const userType = await db.tipoUsuario.findAll({raw:true});
             const provinces = await fetch('https://apis.datos.gob.ar/georef/api/provincias')
                                         .then(response => response.json())
                                         .then(data => {
@@ -345,6 +352,7 @@ let usersControllers = {
                 title: 'Editar Perfil',
                 user: userEdit,
                 genres,
+                userType,
                 provinces
             })
 
@@ -582,8 +590,6 @@ let usersControllers = {
             user: req.session.loggedUser
         })
     },
-
-
 
 }
 

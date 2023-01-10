@@ -42,6 +42,7 @@ const validationsUsers = {
         body('document').notEmpty().withMessage('Documento obligatorio'),
         body('address').notEmpty().withMessage('Ingresá tu dirección'),
         body('genre').notEmpty().withMessage('Ingresá el género'),
+        body('userType').notEmpty().withMessage('Elegí el tipo de usuario'),
         body('city').notEmpty().withMessage('Indicá tu ciudad'),
         body('state').notEmpty().withMessage('Elegí tu provincia'),
         body('terminos').notEmpty().withMessage('Debes aceptar términos y condiciones'),

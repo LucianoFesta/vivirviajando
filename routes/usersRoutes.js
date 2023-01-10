@@ -6,6 +6,7 @@ const validationsUser = require('../middleware/users/validacionesBack');
 const sessionCheck = require('../middleware/users/sessionCheck');
 const loginCheck = require('../middleware/users/loginCheck');
 const cookieCheck = require('../middleware/users/cookieCheck');
+const loginAdminCheck = require('../middleware/users/loginAdminCheck');
 
 router.get('/login', [cookieCheck, sessionCheck], usersControllers.login);
 router.post('/login', validationsUser.login, usersControllers.processLogin);
@@ -15,6 +16,7 @@ router.post('/register', [uploadFile.single('perfilPhoto'), validationsUser.crea
 router.get('/register/verification/:token', usersControllers.accountVerification);
 
 router.get('/profile', [cookieCheck, loginCheck], usersControllers.profile);
+router.get('/profileViewAdmin/:id', [loginAdminCheck], usersControllers.profileViewAdmin);
 router.get('/profile/logout', usersControllers.logout);
 
 router.get('/edit/:id', [cookieCheck, loginCheck], usersControllers.userEdit);
@@ -25,8 +27,9 @@ router.put('/editPassword/:id',[validationsUser.editPassword], usersControllers.
 
 router.delete('/profile/delete/:id', [cookieCheck, loginCheck], usersControllers.deleteUser);
 
+router.get('/cart', [cookieCheck, loginCheck], usersControllers.cart);
+
 //router.get('/forgotPassword', usersControllers.forgotPassword);
 
-router.get('/cart', [cookieCheck, loginCheck], usersControllers.cart);
 
 module.exports = router;

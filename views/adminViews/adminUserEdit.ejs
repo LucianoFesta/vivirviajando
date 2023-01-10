@@ -11,7 +11,7 @@
 
     <main class="mainRegister p-2 m-4">
       <h2 class="text-center">Completá los campos a modificar</h2>
-        <form class="row g-3 p-4 register" action="/users/edit/<%= user.id %>" method="POST" enctype="multipart/form-data">
+        <form class="row g-3 p-4 register" action="/admin/userEdit/<%= user.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
             <div class="col-md-4">
               <label for="name" class="form-label">Nombre</label>
               <input type="text" name="name" id="name" class="form-control" value="<%= user.nombre %>">
@@ -19,6 +19,7 @@
                 <span class="text-danger" >* <%= errors.name.msg %> </span>
               <% } %>
             </div>
+
             <div class="col-md-4">
                 <label for="lastName" class="form-label">Apellido</label>
                 <input type="text" name="lastName" id="lastName" class="form-control" value="<%= user.apellido %>">
@@ -26,6 +27,7 @@
                   <span class="text-danger" >* <%= errors.lastName.msg %> </span>
                 <% } %>
             </div>
+
             <div class="col-md-4">
               <label for="yearsOld" class="form-label">Fecha de Nacimiento</label>
               <input type="date" name="yearsOld" id="yearsOld" class="form-control" value="<%= user.nacimiento %>">
@@ -34,75 +36,47 @@
               <% } %>
             </div> 
 
-            <% if(user.id_tipoUsuario === 1){ %> 
-              <div class="col-md-3">
-                <label for="document" class="form-label">DNI</label>
-                <input type="number" name="document" id="document" class="form-control" value="<%= user.documento %>">
-                <% if(locals.errors && errors.document) { %> 
-                  <span class="text-danger" >* <%= errors.document.msg %> </span>
-                <% } %>
-              </div>
-              <div class="col-md-3">
-                <label for="address" class="form-label">Domicilio</label>
-                <input type="text" name="address" id="address" class="form-control" value="<%= user.domicilio %>">
-                <% if(locals.errors && errors.address) { %> 
-                  <span class="text-danger" >* <%= errors.address.msg %> </span>
-                <% } %>
-              </div>
-              <div class="col-md-3">
-                <label for="genre" class="form-label">Género</label>
-                <select id="genre" name="genre" class="form-select">
-                  <option disabled>Elegí tu género</option>
-                  <% genres.forEach(genre => { %>
-                    <option value="<%= genre.id %>" <%= user.id_genero == genre.id ? 'selected' : ''  %>> <%= genre.nombre %> </option>
-                  <% }) %>
-                </select>
-                <% if(locals.errors && errors.genre) { %> 
-                  <span class="text-danger" >* <%= errors.genre.msg %> </span>
-                <% } %>
-              </div>
-              <div class="col-md-3">
-                <label for="genre" class="form-label">Tipo Usuario</label>
-                <select id="userType" name="userType" class="form-select">
-                  <option disabled>Elegí el tipo de Usuario</option>
-                  <% userType.forEach(type => { %>
-                    <option value="<%= type.id %>" <%= user.id_tipoUsuario == type.id ? 'selected' : ''  %>> <%= type.nombre %> </option>
-                  <% }) %>
-                </select>
-                <% if(locals.errors && errors.userType) { %> 
-                  <span class="text-danger" >* <%= errors.userType.msg %> </span>
-                <% } %>
-              </div>
+            <div class="col-md-3">
+              <label for="document" class="form-label">DNI</label>
+              <input type="number" name="document" id="document" class="form-control" value="<%= user.documento %>">
+              <% if(locals.errors && errors.document) { %> 
+                <span class="text-danger" >* <%= errors.document.msg %> </span>
+              <% } %>
+            </div>
 
-            <% } else{ %>
+            <div class="col-md-3">
+              <label for="address" class="form-label">Domicilio</label>
+              <input type="text" name="address" id="address" class="form-control" value="<%= user.domicilio %>">
+              <% if(locals.errors && errors.address) { %> 
+                <span class="text-danger" >* <%= errors.address.msg %> </span>
+              <% } %>
+            </div>
+            
+            <div class="col-md-3">
+              <label for="genre" class="form-label">Género</label>
+              <select id="genre" name="genre" class="form-select">
+                <option disabled>Elegí tu género</option>
+                <% genres.forEach(genre => { %>
+                  <option value="<%= genre.id %>" <%= user.id_genero == genre.id ? 'selected' : ''  %>> <%= genre.nombre %> </option>
+                <% }) %>
+              </select>
+              <% if(locals.errors && errors.genre) { %> 
+                <span class="text-danger" >* <%= errors.genre.msg %> </span>
+              <% } %>
+            </div>
 
-              <div class="col-md-4">
-                <label for="document" class="form-label">DNI</label>
-                <input type="number" name="document" id="document" class="form-control" value="<%= user.documento %>">
-                <% if(locals.errors && errors.document) { %> 
-                  <span class="text-danger" >* <%= errors.document.msg %> </span>
-                <% } %>
-              </div>
-              <div class="col-md-4">
-                <label for="address" class="form-label">Domicilio</label>
-                <input type="text" name="address" id="address" class="form-control" value="<%= user.domicilio %>">
-                <% if(locals.errors && errors.address) { %> 
-                  <span class="text-danger" >* <%= errors.address.msg %> </span>
-                <% } %>
-              </div>
-              <div class="col-md-4">
-                <label for="genre" class="form-label">Género</label>
-                <select id="genre" name="genre" class="form-select">
-                  <option disabled>Elegí tu género</option>
-                  <% genres.forEach(genre => { %>
-                    <option value="<%= genre.id %>" <%= user.id_genero == genre.id ? 'selected' : ''  %>> <%= genre.nombre %> </option>
-                  <% }) %>
-                </select>
-                <% if(locals.errors && errors.genre) { %> 
-                  <span class="text-danger" >* <%= errors.genre.msg %> </span>
-                <% } %>
-              </div>
-            <% } %>
+            <div class="col-md-3">
+              <label for="genre" class="form-label">Tipo Usuario</label>
+              <select id="userType" name="userType" class="form-select">
+                <option disabled>Elegí el tipo de Usuario</option>
+                <% userType.forEach(type => { %>
+                  <option value="<%= type.id %>" <%= user.id_tipoUsuario == type.id ? 'selected' : ''  %>> <%= type.nombre %> </option>
+                <% }) %>
+              </select>
+              <% if(locals.errors && errors.userType) { %> 
+                <span class="text-danger" >* <%= errors.userType.msg %> </span>
+              <% } %>
+            </div>
 
             <div class="col-md-4">
               <label for="state" class="form-label">Provincia</label>
@@ -116,6 +90,7 @@
                 <span class="text-danger" >* <%= errors.state.msg %> </span>
               <% } %>
             </div>
+
             <div class="col-md-4">
               <label for="city" class="form-label">Ciudad</label>
               <select id="city" name="city" class="form-select">
@@ -125,6 +100,7 @@
                 <% } %>
               </select>
             </div>
+
             <div class="col-md-4 mb-3">
               <label for="perfilPhoto" class="form-label">Foto de Perfil</label>
               <input class="form-control" type="file" name="perfilPhoto" id="perfilPhoto">
@@ -132,6 +108,7 @@
                 <span class="text-danger" >* <%= errors.perfilPhoto.msg %> </span>
               <% } %>
             </div>
+            
             <div class="mb-3 col-md-12">
               <label for="email" class="form-label">Correo Electrónico</label>
               <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>">
@@ -139,6 +116,7 @@
                 <span class="text-danger" >* <%= errors.email.msg %> </span>
               <% } %>
             </div>
+
             <div class="col-12">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="terminos" name="terminos">
@@ -150,10 +128,12 @@
                 <span class="text-danger" >* <%= errors.terminos.msg %> </span>
               <% } %>
             </div>
+
             <div class="col-12 text-center">
               <button type="submit" class="btn btn-primary pe-4 ps-4 btnLogin"><i class="bi bi-check2-square"></i> Modificar</button>
-              <a type="button" href="/users/profile" class="btn btn-primary pe-4 ps-4 btnLogin"><i class="bi bi-x-circle"></i> Cancelar</a>
+              <a type="button" href="/admin/listUsers" class="btn btn-primary pe-4 ps-4 btnLogin"><i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
+            
           </form>
     </main>
 

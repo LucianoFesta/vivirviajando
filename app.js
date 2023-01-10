@@ -15,6 +15,9 @@ const usersRoutes = require('./routes/usersRoutes');
 //Rutas Products
 const productsRoutes = require('./routes/productsRoutes');
 
+//Rutas admin
+const adminRoutes = require('./routes/adminRoutes');
+
 const app = express();
 
 //Indicamos a express cual es el motor de plantillas a utilizar
@@ -24,6 +27,7 @@ app.set('views', [
     path.join(__dirname,'./views/mainViews'),
     path.join(__dirname,'./views/productsViews'),
     path.join(__dirname,'./views/usersViews'),
+    path.join(__dirname,'./views/adminViews')
 ]);
 
 //Declaramos donde estan los archivos estaticos
@@ -51,6 +55,7 @@ app.use(methodOverride('_method'));
 app.use('/', mainRoutes);
 app.use('/users', usersRoutes);
 app.use('/products', productsRoutes);
+app.use('/admin', adminRoutes);
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Servidor corriendo en el puerto ' + process.env.PORT);

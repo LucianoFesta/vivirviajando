@@ -262,7 +262,7 @@ footer a i:hover{
     border-radius: 10px;
 }
 
-.divEncabezado img{
+.divEncabezado img, .imgPerfil{
     width: 140px;
     height: 140px;
     border-radius: 50%;
