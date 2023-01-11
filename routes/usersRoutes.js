@@ -9,7 +9,7 @@ const cookieCheck = require('../middleware/users/cookieCheck');
 const loginAdminCheck = require('../middleware/users/loginAdminCheck');
 
 router.get('/login', [cookieCheck, sessionCheck], usersControllers.login);
-router.post('/login', validationsUser.login, usersControllers.processLogin);
+router.post('/login', [validationsUser.login], usersControllers.processLogin);
 
 router.get('/register', [cookieCheck, sessionCheck], usersControllers.register);
 router.post('/register', [uploadFile.single('perfilPhoto'), validationsUser.createUser], usersControllers.processRegister);
@@ -29,7 +29,10 @@ router.delete('/profile/delete/:id', [cookieCheck, loginCheck], usersControllers
 
 router.get('/cart', [cookieCheck, loginCheck], usersControllers.cart);
 
-//router.get('/forgotPassword', usersControllers.forgotPassword);
+router.get('/forgotPassword', usersControllers.forgotPassword);
+router.post('/forgotPassword', [validationsUser.forgotPassword], usersControllers.processForgotPassword);
+router.get('/forgotPassword/:token', usersControllers.newPasswordForget);
+router.post('/forgotPassword/:token', [validationsUser.newPasswordForget], usersControllers.processNewPasswordForget);
 
 
 module.exports = router;

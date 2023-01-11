@@ -584,6 +584,197 @@ let usersControllers = {
         }
     },
 
+    /****************************************************/
+    /***************RECUPERAR PASSWORD*******************/
+    /****************************************************/
+
+    /**********************GET***************************/
+
+    forgotPassword: (req,res) => {
+        res.render('forgotPassword', {
+            title: 'Recuperar Contraseña',
+            user: req.session.loggedUser
+        })
+    },
+
+    /**********************POST**************************/
+
+    processForgotPassword: async (req, res) =>{
+        try {
+            const email = req.body.email;
+            const validationsResult = validationResult(req);
+
+            if(validationsResult.errors.length > 0){
+                res.render('forgotPassword', {
+                    title: 'Recuperar Contraseña',
+                    user: req.session.loggedUser,
+                    oldData: req.body,
+                    errors: validationsResult.mapped()
+                })
+
+            }else{
+                const user = await db.usuarios.findOne({
+                    raw: true,
+                    where: {email: email}
+                })
+
+                if(!user){
+                    res.render('forgotPassword', {
+                        title: 'Recuperar Contraseña',
+                        user: req.session.loggedUser,
+                        oldData: req.body,
+                        errors: {
+                            email: {
+                                msg: 'Este mail no se encuentra registrado.'
+                            }
+                        }
+                    })
+
+                }else{
+
+                    const DOMAIN = process.env.DOMAIN_MAILGUN;
+                    const mg = mailgun({apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN});
+                    const token = jwt.sign({user}, process.env.JWT_FORGOT_PASSWORD, {expiresIn: '20m'});
+
+                    const data = {
+                        from: 'noreply@vivirviajando.com',
+                        to: user.email,
+                        subject: 'Recuperar Contraseña',
+                        html:`
+                        <html>
+                        <body>
+                        <h3>Por favor, hacé click en el siguiente link para recuperar tu contraseña</h3>
+                        <p>Al hacer click, serás redirigido al formulario de creación de contraseña para que puedas seguir disfrutando de VivirViajando!</p>
+                        <a href="http://localhost:3000/users/forgotPassword/${token}">Recuperar Contraseña</a>
+                        </body>
+                        </html>
+                        `
+                    };
+
+                    mg.messages().send(data, function (error, body) {
+                        if(error){
+                            console.log(error) 
+                        }
+                        console.log({message: 'El mail ha sido enviado correctamente'})
+                    });
+
+                    res.redirect('/users/login')
+                }
+            }
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+    newPasswordForget: (req,res) => {
+        const token = req.params.token;
+
+        res.render('editForgotPassword', {
+            title: 'Nueva Contraseña',
+            token,
+            user: req.session.loggedUser
+        })
+    },
+
+    processNewPasswordForget: async (req,res) => {
+        const token = req.params.token;
+        const validationsResult = validationResult(req);
+                
+        if(validationsResult.errors.length > 0){
+
+            res.render('editForgotPassword', {
+                title: 'Nueva Contraseña',
+                errors: validationsResult.mapped(),
+                token,
+                user: req.session.loggedUser
+            })
+        }else{
+            if(token){
+                jwt.verify(token, process.env.JWT_FORGOT_PASSWORD, async function(err,decodedToken){
+                    if(err){
+                        console.log('Token inexistente o expirado')
+                    }else{
+                        const {user} = decodedToken;
+    
+                        const newUser = {
+                            nombre: user.nombre,
+                            apellido: user.apellido,
+                            id_tipoUsuario: user.id_tipoUsuario,
+                            nacimiento: user.nacimiento,
+                            documento: user.documento,
+                            domicilio: user.domicilio,
+                            id_genero: user.id_genero,
+                            provincia: user.provincia,
+                            ciudad: user.ciudad,
+                            fotoPerfil: user.fotoPerfil,
+                            password: bcryptjs.hashSync(req.body.passwordNew, 10),
+                            confirmarPassword: bcryptjs.hashSync(req.body.passwordNewConfirm, 10),
+                            email: user.email,
+                            condiciones: user.condiciones,
+                        }
+    
+                        const passwordOld = bcryptjs.compareSync(req.body.passwordNew, user.password);
+
+                        if(passwordOld){
+                            res.render('editForgotPassword', {
+                                title: 'Nueva Contraseña',
+                                errors: {
+                                    passwordNew: {
+                                        msg: 'Debes ingresar otra contraseña'
+                                    }
+                                },
+                                token,
+                                user: req.session.loggedUser
+                            })
+
+                        }else if(req.body.passwordNew !== req.body.passwordNewConfirm){
+                            res.render('editForgotPassword', {
+                                title: 'Nueva Contraseña',
+                                errors: {
+                                    passwordNewConfirm: {
+                                        msg: 'La contraseña debe coincidir con la ingresada.'
+                                    }
+                                },
+                                token,
+                                user: req.session.loggedUser
+                            })
+
+                        }else{
+                            await db.usuarios.update(newUser, { where: {id: user.id}});
+        
+                            const DOMAIN = process.env.DOMAIN_MAILGUN;
+                            const mg = mailgun({apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN});
+                            const data = {
+                                from: 'noreply@vivirviajando.com',
+                                to: newUser.email,
+                                subject: 'Contraseña Reestablecida con éxito',
+                                html:`
+                                    <html>
+                                        <body>
+                                            <h2>Contraseña generada con éxito</h2>
+                                            <p>Ya puede seguir disfrutando nuevamente de VivirViajando.</p>
+                                            <p>Saludos Cordiales.-</p>
+                                        </body>
+                                    </html>
+                                `
+                            };
+                            mg.messages().send(data, function (error, body) {
+                                if(error){
+                                    console.log(error) 
+                                }
+                                console.log({message: 'El mail ha sido enviado correctamente'})
+                            });
+        
+                            res.redirect('/users/login')
+                        }
+                    }
+                })
+            }
+        }
+    },
+
     cart: (req,res) => {
         res.render('cart', {
             title: 'Carrito',

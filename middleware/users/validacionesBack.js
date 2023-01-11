@@ -80,6 +80,21 @@ const validationsUsers = {
         body('password')
             .notEmpty().withMessage('Ingresá una contraseña').bail()
             .isLength({ min:8 }).withMessage('Debes ingresar al menos 8 caracteres')
+    ],
+
+    forgotPassword: [
+        body('email')
+            .notEmpty().withMessage('El Email es obligatorio').bail()
+            .isEmail().withMessage('Lo ingresado no es un Email')
+    ],
+
+    newPasswordForget: [
+        body('passwordNew')
+            .notEmpty().withMessage('Ingresá una contraseña nueva').bail()
+            .isLength({ min:8 }).withMessage('Debes ingresar al menos 8 caracteres'),
+        body('passwordNewConfirm')
+            .notEmpty().withMessage('Ingresá la contraseña nueva').bail()
+            .isLength({ min:8 }).withMessage('Debes ingresar al menos 8 caracteres'),
     ]
 
 }

@@ -15,6 +15,7 @@ let adminControllers = {
         try {
             const users = await db.usuarios.findAll({
                 raw:true,
+                order: ['apellido'],
                 include: [{association: 'tipoUsuario'}] 
             });
 
