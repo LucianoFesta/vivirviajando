@@ -16,13 +16,23 @@ module.exports = {
 
         try {
             let order = await db.compras.create(
-                { ...req.body, id_usuario: req.session.loggedUser.id},
-                {
-                    include: db.compras.itemscompra
-                }
-            );
+                { ...req.body, id_usuario: req.session.loggedUser.id}
+                );
 
-            res.json({ok: true, status: 200, order: order});
+            let orderItems = req.body.orderItems;
+
+            for(let i = 0; i < req.body.orderItems.length; i++){
+                await db.itemsCompra.create({
+                    id_compra: order.null,
+                    id_producto: req.body.orderItems[i].id_producto,
+                    nombre: req.body.orderItems[i].nombre,
+                    servicio: req.body.orderItems[i].servicio,
+                    precio: req.body.orderItems[i].precio,
+                    cantidad: req.body.orderItems[i].cantidad
+                })
+            }
+
+            res.json({ok: true, status: 200, order: order, items: orderItems});
 
         } catch (error) {
             console.log(error)

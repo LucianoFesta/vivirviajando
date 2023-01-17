@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
         id_compra: {type: DataTypes.INTEGER, allowNull: false},
         id_producto: {type: DataTypes.INTEGER, allowNull: false},
         nombre: {type: DataTypes.STRING, allowNull: false},
+        servicio: {type: DataTypes.STRING, allowNull: false},
         precio: {type: DataTypes.DECIMAL, allowNull: false},
         cantidad: {type: DataTypes.INTEGER, allowNull: false}
     };
@@ -19,6 +20,12 @@ module.exports = (sequelize, DataTypes) => {
         itemsCompra.belongsTo(models.compras, {
             as: 'itemsCompras',
             foreignKey: 'id_compra',
+            timestamps: false
+        });
+
+        itemsCompra.belongsTo(models.productos, {
+            as: 'products',
+            foreignKey: 'id_producto',
             timestamps: false
         });
     }

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             timestamps: false
         });
 
-        compras.belongsTo(models.itemsCompra, {
+        compras.hasMany(models.itemsCompra, {
             as: 'itemsCompras',
             foreignKey: 'id_compra',
             timestamps: false
