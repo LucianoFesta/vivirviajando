@@ -20,7 +20,7 @@ router.get('/profileViewAdmin/:id', [loginAdminCheck], usersControllers.profileV
 router.get('/profile/logout', usersControllers.logout);
 
 router.get('/edit/:id', [cookieCheck, loginCheck], usersControllers.userEdit);
-router.post('/edit/:id', [uploadFile.single('perfilPhoto'), validationsUser.editUser], usersControllers.processEdit);
+router.put('/edit/:id', [uploadFile.single('perfilPhoto'), validationsUser.editUser], usersControllers.processEdit);
 
 router.get('/editPassword/:id', [cookieCheck, loginCheck], usersControllers.editPassword);
 router.put('/editPassword/:id',[validationsUser.editPassword], usersControllers.processEditPassword);

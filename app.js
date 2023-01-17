@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const cookieCheck = require('./middleware/users/cookieCheck');
+const error404 = require('./middleware/error404');
 
 //Rutas Main
 const mainRoutes = require('./routes/mainRoutes');
@@ -17,6 +18,9 @@ const productsRoutes = require('./routes/productsRoutes');
 
 //Rutas admin
 const adminRoutes = require('./routes/adminRoutes');
+
+//Rutas APIs
+const apiRoutes = require('./routes/apiRoutes');
 
 const app = express();
 
@@ -56,6 +60,9 @@ app.use('/', mainRoutes);
 app.use('/users', usersRoutes);
 app.use('/products', productsRoutes);
 app.use('/admin', adminRoutes);
+app.use('/api', apiRoutes);
+//Middleware para error 404
+app.use(error404);
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Servidor corriendo en el puerto ' + process.env.PORT);

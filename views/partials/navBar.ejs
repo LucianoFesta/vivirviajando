@@ -40,7 +40,10 @@
                     <% if(user == undefined || user.id_tipoUsuario != 1) { %> 
                       <div>
                         <li class="nav-item">
-                          <a class="nav-link" href="/users/cart"><i class="bi bi-cart-fill"></i> Carrito</a>
+                          <div class="linkCarrito">
+                            <a class="nav-link position-relative" href="/users/cart"><i class="bi bi-cart-fill"></i> Carrito</a>
+                            <span class="position-absolute cart_number">0</span>
+                          </div>
                         </li>
                       </div>
                     <% }else if(user.id_tipoUsuario == 1) { %> 

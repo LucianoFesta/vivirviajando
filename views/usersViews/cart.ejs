@@ -11,97 +11,41 @@
 
     <main >
         <h2>Tu compra</h2>
-        <div class="container carrito mt-2 mb-4 pt-4 pb-4">
-            <div class="pt-2 pb-2">
-                <div class="d-md-flex justify-content-around align-items-center border-top">
-                    <div class="d-flex align-items-center justify-content-center p-2">
-                        <img src="../images/la_habana.jpg" alt="Vuelo La Habana">
-                        <div class="d-flex flex-column align-items-center">
-                            <h4 class="pb-0 mb-0">Vuelo a La Habana</h4>
-                            <span>Desde Córdoba</span>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-around justify-content-md-around">
-                      <form action="" method="post">
-                        <div class="d-flex flex-column align-items-center">
-                          <div>
-                            <button class="border"><i class="bi bi-dash"></i></button>
-                            <input type="text" class="border text-center" value="1">
-                            <button class="border"><i class="bi bi-plus"></i></button>
-                          </div>
-                          <div>
-                            <button class="border mt-1"><i class="bi bi-archive"></i> Eliminar Item</button>
-                          </div>
-                        </div>
-                      </form>
-                        <span class="spanPrecio">$250.000</span>
-                    </div>
-                </div>
-            </div>
-            <div class="pt-2 pb-2">
-              <div class="d-md-flex justify-content-around align-items-center border-top">
-                  <div class="d-flex align-items-center justify-content-center p-2">
-                      <img src="../images/la_habana.jpg" alt="Vuelo La Habana">
-                      <div class="d-flex flex-column align-items-center">
-                          <h4 class="pb-0 mb-0">Vuelo a La Habana</h4>
-                          <span>Desde Córdoba</span>
-                      </div>
-                  </div>
-                  <div class="d-flex justify-content-around justify-content-md-around">
-                    <form action="" method="post">
-                      <div class="d-flex flex-column align-items-center">
-                        <div>
-                          <button class="border"><i class="bi bi-dash"></i></button>
-                          <input type="text" class="border text-center" value="1">
-                          <button class="border"><i class="bi bi-plus"></i></button>
-                        </div>
-                        <div>
-                          <button class="border mt-1"><i class="bi bi-archive"></i> Eliminar Item</button>
-                        </div>
-                      </div>
-                    </form>
-                      <span class="spanPrecio">$250.000</span>
-                  </div>
-              </div>
-              <div class="pt-2 pb-2">
-                <div class="d-md-flex justify-content-around align-items-center border-top">
-                    <div class="d-flex align-items-center justify-content-center p-2">
-                        <img src="../images/la_habana.jpg" alt="Vuelo La Habana">
-                        <div class="d-flex flex-column align-items-center">
-                            <h4 class="pb-0 mb-0">Vuelo a La Habana</h4>
-                            <span>Desde Córdoba</span>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-around justify-content-md-around">
-                        <form action="" method="post">
-                          <div class="d-flex flex-column align-items-center">
-                            <div>
-                              <button class="border"><i class="bi bi-dash"></i></button>
-                              <input type="text" class="border text-center" value="1">
-                              <button class="border"><i class="bi bi-plus"></i></button>
-                            </div>
-                            <div>
-                              <button class="border mt-1"><i class="bi bi-archive"></i> Eliminar Item</button>
-                            </div>
-                          </div>
-                        </form>
-                        <span class="spanPrecio">$250.000</span>
-                    </div>
-                </div>
-                <div class="mt-2 pt-4 pb-2 divTotal border border-dark">
-                  <div class="d-flex justify-content-around align-items-center">
-                      <div class="d-flex align-items-center justify-content-center p-2">
-                          <p class="fw-bold fst-italic">TOTAL DE TU COMPRA:</p>
-                      </div>
-                      <div class="d-flex justify-content-around justify-content-md-around">
-                          <span class="fw-bold fst-italic">$750.000</span>
-                      </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center mt-2">
-                  <button class="btnLogin"><i class="bi bi-check2-square"></i> Finalizar Compra</button>
-                </div>
-        </div>
+        <table class="table w-75 m-auto text-center">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Producto</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Precio Total</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider cartRow">
+          </tbody>
+        </table>
+        <table class="table w-75 m-auto text-center">
+          <tr>
+            <tbody class="table-group-divider">
+              <th scope="row"></th>
+              <td colspan="2" class="fw-bold">TOTAL DE LA COMPRA</td>
+              <td class="fw-bold cartTotal"></td>
+            </tbody>
+          </tr>
+        </table>
+
+        <form class="w-75 m-auto pt-2 checkoutCart">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label" name="paymentMethod">Forma de Pago</label>
+            <select class="form-select" aria-label="Default select example" name="paymentMethod">
+              <option selected disabled>Elije tu forma de pago</option>
+              <option value="debitCard">Tarjeta de Débito</option>
+              <option value="creditCard">Tarjeta de Crédito</option>
+              <option value="transfer">Transferencia</option>
+            </select>
+          </div>
+          <button class="btn btn-primary w-50 m-auto mt-4 mb-4 d-grid gap-2" type="submit">Confirmar Compra</button>
+        </form>
     </main>
 
     <footer class="pt-2">
@@ -109,7 +53,9 @@
     </footer>
   
   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <%- include('../partials/scripts.ejs') %>
+    <script src="/js/cart.js"></script>
+    <script src="/js/cartItems.js"></script>
 
 </body>
 </html>

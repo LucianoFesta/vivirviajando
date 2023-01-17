@@ -235,7 +235,8 @@ let usersControllers = {
             if(validationsResult.errors.length > 0){
                 res.render('login', {
                     title: 'Ingresá',
-                    errors: validationsResult.mapped()
+                    errors: validationsResult.mapped(),
+                    user: req.session.loggedUser
                 })
             }else{
                 const loggedUser = await db.usuarios.findOne({
@@ -430,6 +431,8 @@ let usersControllers = {
                     include: [{association: 'generos'}]
                 })
 
+                console.log(editedUser);
+
                 editedUser.nombreGenero = editedUser['generos.nombre'];
                 delete editedUser.confirmarPassword && delete editedUser.password;
 
@@ -588,6 +591,8 @@ let usersControllers = {
     /***************RECUPERAR PASSWORD*******************/
     /****************************************************/
 
+    /****************FORMULARIO EMAIL********************/
+
     /**********************GET***************************/
 
     forgotPassword: (req,res) => {
@@ -596,7 +601,7 @@ let usersControllers = {
             user: req.session.loggedUser
         })
     },
-
+    
     /**********************POST**************************/
 
     processForgotPassword: async (req, res) =>{
@@ -668,6 +673,9 @@ let usersControllers = {
         }
     },
 
+    /*********FORMULARIO NUEVA CONTRASEÑA****************/
+    /**********************GET***************************/
+
     newPasswordForget: (req,res) => {
         const token = req.params.token;
 
@@ -677,6 +685,8 @@ let usersControllers = {
             user: req.session.loggedUser
         })
     },
+
+    /**********************POST**************************/
 
     processNewPasswordForget: async (req,res) => {
         const token = req.params.token;
@@ -776,6 +786,7 @@ let usersControllers = {
     },
 
     cart: (req,res) => {
+
         res.render('cart', {
             title: 'Carrito',
             user: req.session.loggedUser
