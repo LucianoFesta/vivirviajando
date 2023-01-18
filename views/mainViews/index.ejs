@@ -106,10 +106,15 @@
                           <p><%= product.descripcion %></p>
                         </div>
                         <div class="modal-footer">
-                          <% if(user == undefined || user.id_tipoUsuario === 2 ){ %> 
+                          <% if(user == undefined){ %> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <form action="/users/login">
+                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Agregar al Carrito</button>
+                            </form>
+                          <%} else if(user.id_tipoUsuario === 2) { %> 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-secondary cart_add" data-bs-dismiss="modal" data-id="<%= product.id %>">Agregar al Carrito</button>
-                          <% }else{ %> 
+                          <% }else{ %>
                             <form action="/products/edit/<%= product.id %>" method="GET">
                               <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Editar</button>
                             </form>
@@ -163,10 +168,15 @@
                           <p><%= product.descripcion %></p>
                         </div>
                         <div class="modal-footer">
-                          <% if(user == undefined || user.id_tipoUsuario === 2 ){ %> 
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>   
+                          <% if(user == undefined){ %> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <form action="/users/login">
+                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Agregar al Carrito</button>
+                            </form>
+                          <%} else if(user.id_tipoUsuario === 2) { %> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-secondary cart_add" data-bs-dismiss="modal" data-id="<%= product.id %>">Agregar al Carrito</button>
-                          <% }else{ %> 
+                          <% }else{ %>
                             <form action="/products/edit/<%= product.id %>" method="GET">
                               <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Editar</button>
                             </form>
@@ -221,10 +231,15 @@
                           <p><%= product.descripcion %></p>
                         </div>
                         <div class="modal-footer">
-                          <% if(user == undefined || user.id_tipoUsuario === 2 ){ %> 
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>   
+                          <% if(user == undefined){ %> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <form action="/users/login">
+                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Agregar al Carrito</button>
+                            </form>
+                          <%} else if(user.id_tipoUsuario === 2) { %> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-secondary cart_add" data-bs-dismiss="modal" data-id="<%= product.id %>">Agregar al Carrito</button>
-                          <% }else{ %> 
+                          <% }else{ %>
                             <form action="/products/edit/<%= product.id %>" method="GET">
                               <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Editar</button>
                             </form>
@@ -279,10 +294,15 @@
                           <p><%= product.descripcion %></p>
                         </div>
                         <div class="modal-footer">
-                          <% if(user == undefined || user.id_tipoUsuario === 2 ){ %> 
+                          <% if(user == undefined){ %> 
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <form action="/users/login">
+                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Agregar al Carrito</button>
+                            </form>
+                          <%} else if(user.id_tipoUsuario === 2) { %> 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-secondary cart_add" data-bs-dismiss="modal" data-id="<%= product.id %>">Agregar al Carrito</button>
-                          <% }else{ %> 
+                          <% }else{ %>
                             <form action="/products/edit/<%= product.id %>" method="GET">
                               <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Editar</button>
                             </form>

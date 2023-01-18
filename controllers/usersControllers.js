@@ -27,7 +27,7 @@ let usersControllers = {
                                             })
                                             return provincesList;
                                         })
-                                        .catch(error => console.log(error));
+                                        .catch(error => res.redirect('/error404'));
             //En JS de front esta el fetch para elegir ciudades de acuerdo a la provincia elegida.          
             
             res.render('register', {
@@ -58,7 +58,7 @@ let usersControllers = {
                                             })
                                             return provincesList;
                                         })
-                                        .catch(error => console.log(error));
+                                        .catch(error => res.redirect('/error404'));
     
             if(validationsResult.errors.length > 0){
                 res.render('register', {
@@ -362,7 +362,8 @@ let usersControllers = {
                                                 provincesList.push(province)
                                             })
                                             return provincesList;
-                                        })       
+                                        })   
+                                        .catch(error => res.redirect('/error404'))    
             
             res.render('userEdit', {
                 title: 'Editar Perfil',
@@ -402,7 +403,8 @@ let usersControllers = {
                                                 provincesList.push(province)
                                             })
                                             return provincesList;
-                                        })       
+                                        })    
+                                        .catch(error => res.redirect('/error404'))   
     
             if(validationsResult.errors.length > 0){
                 res.render('userEdit', {
