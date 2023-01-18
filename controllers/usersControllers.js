@@ -302,9 +302,24 @@ let usersControllers = {
 
     profile: async (req,res) => {
         try {        
+
+            const shoppings = await db.compras.findAll({
+                raw: true,
+                where: {id_usuario: req.session.loggedUser.id},
+                include: [{association: 'itemsCompra'}]
+            });
+
+            shoppings.forEach(shopping => {
+                shopping.itemNombre = shopping['itemsCompra.nombre'];
+                shopping.itemServicio = shopping['itemsCompra.servicio'];
+                shopping.itemPrecio = shopping['itemsCompra.precio'];
+                shopping.itemCantidad = shopping['itemsCompra.cantidad'];
+            })
+
             res.render('profile', {
                 title: 'Hola ' + req.session.loggedUser.nombre,
-                user: req.session.loggedUser
+                user: req.session.loggedUser,
+                shoppings: shoppings
 
             })
         } catch (error) {
@@ -378,6 +393,7 @@ let usersControllers = {
             delete userEdit.confirmarPassword && delete userEdit.password;
 
             const genres = await db.generos.findAll({raw:true});
+            const userType = await db.tipoUsuario.findAll({raw:true});
             const provinces = await fetch('https://apis.datos.gob.ar/georef/api/provincias')
                                         .then(response => response.json())
                                         .then(data => {
@@ -394,10 +410,13 @@ let usersControllers = {
                     errors: validationsResult.mapped(),
                     provinces,
                     genres,
+                    userType,
                     user: userEdit
 
                 })
             }else{
+
+                console.log(userEdit);
 
                 let profilePhoto;
                 if(req.file == undefined){
@@ -406,32 +425,54 @@ let usersControllers = {
                     profilePhoto = '/images/users/' + req.file.filename;
                 }
 
-                await db.usuarios.update({
-                    nombre: req.body.name,
-                    apellido: req.body.lastName,
-                    id_tipoUsuario: 2,
-                    nacimiento: req.body.yearsOld,
-                    documento: req.body.document,
-                    domicilio: req.body.address,
-                    id_genero: req.body.genre,
-                    provincia: req.body.state,
-                    ciudad: req.body.city,
-                    fotoPerfil: profilePhoto,
-                    password: userEdit.password,
-                    confirmarPassword: userEdit.confirmarPassword,
-                    email: req.body.email,
-                    condiciones: req.body.terminos
-                },
-                { 
-                    where: {id: userID}
-                })
+                if(userEdit.id_tipoUsuario === 1){
+                    await db.usuarios.update({
+                        nombre: req.body.name,
+                        apellido: req.body.lastName,
+                        id_tipoUsuario: req.body.userType,
+                        nacimiento: req.body.yearsOld,
+                        documento: req.body.document,
+                        domicilio: req.body.address,
+                        id_genero: req.body.genre,
+                        provincia: req.body.state,
+                        ciudad: req.body.city,
+                        fotoPerfil: profilePhoto,
+                        password: userEdit.password,
+                        confirmarPassword: userEdit.confirmarPassword,
+                        email: req.body.email,
+                        condiciones: req.body.terminos
+                    },
+                    { 
+                        where: {id: userID}
+                    })
+                }else{
+                    await db.usuarios.update({
+                        nombre: req.body.name,
+                        apellido: req.body.lastName,
+                        id_tipoUsuario: 2,
+                        nacimiento: req.body.yearsOld,
+                        documento: req.body.document,
+                        domicilio: req.body.address,
+                        id_genero: req.body.genre,
+                        provincia: req.body.state,
+                        ciudad: req.body.city,
+                        fotoPerfil: profilePhoto,
+                        password: userEdit.password,
+                        confirmarPassword: userEdit.confirmarPassword,
+                        email: req.body.email,
+                        condiciones: req.body.terminos
+                    },
+                    { 
+                        where: {id: userID}
+                    })
+                }
+                console.log(req.body)
+
 
                 const editedUser = await db.usuarios.findByPk(userID, {
                     raw:true,
                     include: [{association: 'generos'}]
                 })
-
-                console.log(editedUser);
 
                 editedUser.nombreGenero = editedUser['generos.nombre'];
                 delete editedUser.confirmarPassword && delete editedUser.password;

@@ -44,7 +44,9 @@ const validationsUsers = {
         body('genre').notEmpty().withMessage('Ingresá el género'),
         body('userType').custom((value, {req}) => {
             if(req.session.loggedUser.id_tipoUsuario === 1){
-                throw new Error('Elegí el tipo de usuario');
+                if(!req.body.userType){
+                    throw new Error('Elegí el tipo de usuario');
+                }
             }
             return true
         }),

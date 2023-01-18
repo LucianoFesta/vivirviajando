@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         });
 
         compras.hasMany(models.itemsCompra, {
-            as: 'itemsCompras',
+            as: 'itemsCompra',
             foreignKey: 'id_compra',
             timestamps: false
         });

@@ -57,39 +57,23 @@
         <div class="divCompras pb-3">
             <h2>Tus compras</h2>
             <div class="d-flex flex-wrap justify-content-center">
-                <div>
-                    <div class="card">
-                        <div class="card-header">La Habana</div>
-                        <div class="card-body">
-                          <h5 class="card-title">Viaje Finalizado (10/05/2022)</h5>
-                          <p class="card-text">Hotel: RIU CARIBE</p>
-                          <p class="card-text">Vuelo: desde Córdoba</p>
-                          <p class="card-text">Monto Abonado: $250.000</p>
+                <% if(shoppings.length > 0){ %> 
+                    <% shoppings.forEach(shopping => { %> 
+                        <div class="card">
+                            <div class="card-header"><%= shopping.itemNombre %></div>
+                            <div class="card-body">
+                                <h5 class="card-title">Viaje Finalizado (10/05/2022)</h5>
+                                <p class="card-text"><%= shopping.itemServicio %></p>
+                                <p class="card-text">Cantidad: <%= shopping.itemCantidad %></p>
+                                <p class="card-text">Monto Abonado: $ <%= shopping.itemPrecio %></p>
+                            </div>
                         </div>
-                      </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <div class="card-header">La Habana</div>
-                        <div class="card-body">
-                          <h5 class="card-title">Viaje Finalizado (10/05/2022)</h5>
-                          <p class="card-text">Hotel: RIU CARIBE</p>
-                          <p class="card-text">Vuelo: desde Córdoba</p>
-                          <p class="card-text">Monto Abonado: $250.000</p>
-                        </div>
-                      </div>
-                </div>
-                <div>
-                    <div class="card">
-                        <div class="card-header">La Habana</div>
-                        <div class="card-body">
-                          <h5 class="card-title">Viaje Finalizado (10/05/2022)</h5>
-                          <p class="card-text">Hotel: RIU CARIBE</p>
-                          <p class="card-text">Vuelo: desde Córdoba</p>
-                          <p class="card-text">Monto Abonado: $250.000</p>
-                        </div>
-                      </div>
-                </div>
+                    <% }) %>
+                <% }else{ %> 
+                    <div class="alert alert-warning w-75 text-center" role="alert">
+                        No hay productos en el carrito de compras.
+                    </div>
+                <% } %>
             </div>
         </div>
 
