@@ -59,10 +59,10 @@
             <div class="d-flex flex-wrap justify-content-center">
                 <% if(shoppings.length > 0){ %> 
                     <% shoppings.forEach(shopping => { %> 
-                        <div class="card">
+                        <div class="card" data-aos="fade-right">
                             <div class="card-header"><%= shopping.itemNombre %></div>
                             <div class="card-body">
-                                <h5 class="card-title">Viaje Finalizado (10/05/2022)</h5>
+                                <h5 class="card-title">Detalle de tu compra.</h5>
                                 <p class="card-text"><%= shopping.itemServicio %></p>
                                 <p class="card-text">Cantidad: <%= shopping.itemCantidad %></p>
                                 <p class="card-text">Monto Abonado: $ <%= shopping.itemPrecio %></p>

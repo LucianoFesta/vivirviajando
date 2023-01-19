@@ -1,31 +1,33 @@
 window.addEventListener('load', () => {
 
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": 0,
-        "extendedTimeOut": 0,
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
-        "tapToDismiss": false
-      }
+    const btnSubmit = document.querySelector('.btnSubmit');
+    const form = document.querySelector('form');
 
-    const btnRegister = document.querySelector('.btnSubmit');
+    btnSubmit.addEventListener('click', (e) => {
+        e.preventDefault();
 
-    btnRegister.addEventListener('click', (e) => {
-        e.preventDefault;
-        toastr["success"]("Favor de revisar tu correo Spam.");
-
-        e.submit()
+        const alertSubmit = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger',
+              padding: '1rem',
+              margin: '1rem'
+            },
+            buttonsStyling: false
+        })
+    
+        alertSubmit.fire({
+            title: 'Confirmá tu Correo Electrónico',
+            text: 'Si el mail es correcto, revisá tu correo Spam para crear tu nueva contraseña.',
+            icon: 'warning',
+            confirmButtonText: 'Aceptar'
+    
+          }).then((result) => {
+            if (result.isConfirmed) {
+              form.submit()
+            
+            }
+          })
     })
 
 })

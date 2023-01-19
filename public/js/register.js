@@ -23,40 +23,40 @@ window.addEventListener('load', () => {
         city(e.target.value);
     })
 
-    //Mensaje para confirmar mail al registrarse
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": 0,
-        "extendedTimeOut": 0,
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
-        "tapToDismiss": false
-      }
-
+    //Alert para verificar email.
+    const form = document.querySelector('.formRegister');
     const btnRegister = document.querySelector('.btnRegister');
-
     btnRegister.addEventListener('click', (e) => {
-        e.preventDefault;
-        toastr["success"]("Mail Enviado. Confirme su Email. Favor de revisar en la casilla de Spam.");
-
-        e.submit()
+        e.preventDefault();
+        
+        const alertRegister = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger',
+            padding: '1rem',
+            margin: '1rem'
+          },
+          buttonsStyling: false
+      })
+  
+      alertRegister.fire({
+          title: 'Confirmá tu Correo Electrónico',
+          text: 'Si completaste el formulario sin errores, revisá tu correo Spam para confirmar el email.',
+          icon: 'warning',
+          confirmButtonText: 'Aceptar'
+  
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form.submit()
+          
+          }
+        })
     })
 
 //Alerta cuando hace click en cancelar register
 const btnCancelRegister = document.querySelector('.btnCancelRegister');
 
 btnCancelRegister.addEventListener('click', e => {
-  console.log(btnCancelRegister)
     e.preventDefault()
 
     const alertRegisterCnl = Swal.mixin({
