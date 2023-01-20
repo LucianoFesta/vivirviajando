@@ -4,8 +4,22 @@
     <%- include('../partials/head.ejs') %>
   </head>
 
-  <body>
-    
+  <body class="hidden">
+
+    <div class="centrado">
+      <div class="lds-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
     <header>
       <%- include('../partials/navBar.ejs') %>
     </header>
@@ -76,7 +90,7 @@
         <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
           <% products.forEach(product => { %>
             <% if(product.id_categoria === 1) { %>
-              <div class="card" data-aos="fade-right" style="width: 18rem;">
+              <div class="card" data-aos="flip-left" style="width: 18rem;">
                 <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
                 <div class="card-body">
                   <h5 class="card-title"><%= product.nombre %></h5>
@@ -138,7 +152,7 @@
         <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
           <% products.forEach(product => { %>
             <% if(product.id_categoria === 2) { %>
-              <div class="card" data-aos="fade-left" style="width: 18rem;">
+              <div class="card" data-aos="flip-right" style="width: 18rem;">
                 <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
                 <div class="card-body">
                   <h5 class="card-title"><%= product.nombre %></h5>
@@ -201,7 +215,7 @@
         <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
           <% products.forEach(product => { %>
             <% if(product.id_categoria === 3) { %>
-              <div class="card" data-aos="fade-right" style="width: 18rem;">
+              <div class="card" data-aos="flip-left" style="width: 18rem;">
                 <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
                 <div class="card-body">
                   <h5 class="card-title"><%= product.nombre %></h5>
@@ -264,7 +278,7 @@
         <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
           <% products.forEach(product => { %>
             <% if(product.id_categoria === 4) { %>
-              <div class="card" data-aos="fade-left" style="width: 18rem;">
+              <div class="card" data-aos="flip-right" style="width: 18rem;">
                 <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
                 <div class="card-body">
                   <h5 class="card-title"><%= product.nombre %></h5>
@@ -331,5 +345,6 @@
 
     <%- include('../partials/scripts.ejs') %>
     <script src="/js/cart.js"></script>
+
   </body>
 </html>
