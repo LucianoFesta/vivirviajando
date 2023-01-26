@@ -26,128 +26,69 @@
 
     <%- include('../partials/search.ejs') %>
 
-    <section>
-      <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner" data-bs-interval="10000">
-          <div class="carousel-item active">
-            <img src="../images/espera_airport.jpg" class="d-block w-100" alt="Aeropuerto">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>¿No te gusta la espera?</h5>
-              <p>¡Te puedo asegurar que esta espera, la vas a disfrutar.</p>
-            </div>
-          </div>         
-          <div class="carousel-item" data-bs-interval="2000" >
-            <img src="../images/valijas.jpg" class="d-block w-100" alt="Llegando a la playa">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>¿Te gustan las sorpresas?</h5>
-              <p>Imaginate bajar del taxi y encontrarte con esto.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="../images/chica_mapa.jpg" class="d-block w-100" alt="Planeando viaje">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>¿Planificar un viaje?</h5>
-              <p>Esa es nuestra tarea. La tuya: DISFRUTAR!</p>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    </section>
-
-    <section class="info">
-      <h1>Buscá el viaje que siempre soñaste</h1>
-      <div class="d-lg-flex text-center m-2 p-2">
-        <div class="p-3">
-          <i class="bi bi-clock-history"></i>
-          <p>Nuestro personal esta disponible las 24Hs para tu tranquilidad</p>
-        </div>
-        <div class="p-3">
-          <i class="bi bi-person-vcard-fill"></i>
-          <p>Contamos con personal especializado para asegurar una experiencia inolvidable</p>
-        </div>
-        <div class="p-3">
-          <i class="bi bi-cash-coin"></i>
-          <p>Solo mostraremos precios PROMOCIONALES para ayudarte a cumplir tu sueño</p>
-        </div>
-      </div>
-    </section>
 
     <main>
-
-      <div class="vuelos" id="Vuelo">
-        <h2>Vuelos</h2>
-        <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
-          <% products.forEach(product => { %>
-            <% if(product.id_categoria === 1) { %>
-              <div class="card" style="width: 18rem;">
-                <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= product.nombre %></h5>
-                  <p class="card-text"><%= product.info %></p>
+        <h1>Resultado de tu búsqueda</h1>
+            <% if(products.length > 0) { %> 
+                <div class="vuelos" id="Vuelo">
+                    <h2>Vuelos</h2>
+                    <div class="container-fluid text-center d-flex justify-content-center flex-wrap">
+                <% products.forEach(product => { %>
+                    <% if(product.id_categoria === 1) { %>
+                        <div class="card" style="width: 18rem;">
+                        <img src="<%= product.imagen %>" class="card-img-top" alt="<%= product.nombre %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= product.nombre %></h5>
+                            <p class="card-text"><%= product.info %></p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="bi bi-airplane-fill"></i> <%= product.servicio %></li>
+                            <li class="list-group-item"><i class="bi bi-currency-dollar"></i> <%= product.precio %>,00</li>
+                            <li class="list-group-item"><i class="bi bi-credit-card-fill"></i> <%= product.pagosDescripcion %></li>
+                        </ul>
+                        <div class="card-body">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="card-link border" data-bs-toggle="modal" data-bs-target="#<%= product.idModal %>"><i class="bi bi-plus"></i> Ver más</button>
+            
+                            <!-- Modal -->
+                            <div class="modal fade" id="<%= product.idModal %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= product.nombre %></h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5><%= product.servicio %></h5>
+                                    <p><%= product.descripcion %></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <% if(user == undefined){ %> 
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <form action="/users/login">
+                                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Agregar al Carrito</button>
+                                    </form>
+                                    <%} else if(user.id_tipoUsuario === 2) { %> 
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-secondary cart_add" data-bs-dismiss="modal" data-id="<%= product.id %>">Agregar al Carrito</button>
+                                    <% }else{ %>
+                                    <form action="/products/edit/<%= product.id %>" method="GET">
+                                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Editar</button>
+                                    </form>
+                                    <form action="/products/delete/<%= product.id %>?_method=DELETE" method="POST">
+                                        <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar</button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <% } %>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item"><i class="bi bi-airplane-fill"></i> <%= product.servicio %></li>
-                  <li class="list-group-item"><i class="bi bi-currency-dollar"></i> <%= product.precio %>,00</li>
-                  <li class="list-group-item"><i class="bi bi-credit-card-fill"></i> <%= product.pagosDescripcion %></li>
-                </ul>
-                <div class="card-body">
-                  <!-- Button trigger modal -->
-                  <button type="button" class="card-link border" data-bs-toggle="modal" data-bs-target="#<%= product.idModal %>">
-                    <i class="bi bi-plus"></i> Ver más
-                  </button>
-    
-                  <!-- Modal -->
-                  <div class="modal fade" id="<%= product.idModal %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= product.nombre %></h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <h5><%= product.servicio %></h5>
-                          <p><%= product.descripcion %></p>
-                        </div>
-                        <div class="modal-footer">
-                          <% if(user == undefined){ %> 
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <form action="/users/login">
-                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Agregar al Carrito</button>
-                            </form>
-                          <%} else if(user.id_tipoUsuario === 2) { %> 
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-secondary cart_add" data-bs-dismiss="modal" data-id="<%= product.id %>">Agregar al Carrito</button>
-                          <% }else{ %>
-                            <form action="/products/edit/<%= product.id %>" method="GET">
-                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Editar</button>
-                            </form>
-                            <form action="/products/delete/<%= product.id %>?_method=DELETE" method="POST">
-                              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Eliminar</button>
-                            </form>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                          <% } %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% } %>
-          <% }) %>
-        </div>
 
       <div class="hoteles" id="Hotel">
         <h2>Hoteles</h2>
@@ -337,7 +278,9 @@
           <% }) %>
         </div>
       </div>
-
+        <% }else { %> 
+            <h2>No hay resultados para tu búsqueda</h2>    
+        <% } %>
     </main>
 
     <footer class="pt-2">

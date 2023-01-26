@@ -1,9 +1,11 @@
 const { validationResult } = require('express-validator');
 const db = require('../database/models');
+const { Op, or } = require('sequelize');
 const fetch = require('node-fetch');
 const bcryptjs = require('bcryptjs');
 const mailgun = require("mailgun-js");
 const jwt = require('jsonwebtoken');
+
 
 
 let usersControllers = {
@@ -828,6 +830,10 @@ let usersControllers = {
         }
     },
 
+/****************************************************/
+/***************CARRITO DE COMPRAS*******************/
+/****************************************************/
+
     cart: (req,res) => {
 
         res.render('cart', {
@@ -835,6 +841,53 @@ let usersControllers = {
             user: req.session.loggedUser
         })
     },
+
+/****************************************************/
+/**********************BUSCADOR**********************/
+/****************************************************/
+
+    search: async (req,res) => {
+
+        try {
+            const key = req.query.key;
+
+            const searchProducts = await db.productos.findAll({
+                raw: true,
+                where: {
+                    [Op.or] : [
+                        {servicio: {
+                            [Op.like]: `%${key}%`
+                        }}, 
+                        {nombre: {
+                            [Op.like]: `%${key}%`
+                        }}, 
+                        {descripcion: {
+                            [Op.like]: `%${key}%`
+                        }}]
+                },
+                include: [
+                    { association: 'categorias'},
+                    { association: 'pagos' }
+                ]
+            })
+            
+            searchProducts.forEach(product => {
+                product.categoriaNombre = product['categorias.nombre'];
+                product.pagosDescripcion = product['pagos.descripcion'];
+                product.idModal = product.nombre.replaceAll(' ','') + product.id;
+            });
+
+            return res.render('searchView', {
+                title: 'Resultado de Búsqueda',
+                products: searchProducts,
+                user: req.session.loggedUser
+            })
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
 
 }
 
