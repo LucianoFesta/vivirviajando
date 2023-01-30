@@ -860,15 +860,13 @@ let usersControllers = {
                         }}, 
                         {nombre: {
                             [Op.like]: `%${key}%`
-                        }}, 
-                        {descripcion: {
-                            [Op.like]: `%${key}%`
-                        }}]
+                        }}
+                    ]
                 },
                 include: [
                     { association: 'categorias'},
                     { association: 'pagos' }
-                ]
+                ]  
             })
             
             searchProducts.forEach(product => {

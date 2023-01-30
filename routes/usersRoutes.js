@@ -34,7 +34,7 @@ router.post('/forgotPassword', [validationsUser.forgotPassword], usersController
 router.get('/forgotPassword/:token', usersControllers.newPasswordForget);
 router.post('/forgotPassword/:token', [validationsUser.newPasswordForget], usersControllers.processNewPasswordForget);
 
-router.get('/search', usersControllers.search);
+router.get('/search/:page', usersControllers.search);
 
 
 module.exports = router;
